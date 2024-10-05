@@ -1,43 +1,53 @@
-import "./App.css";
-import {WEATHER_BASE_URL, ICON_URL} from "./api";
-import {useState} from "react";
+import "./styles/App.css";
+import {WEATHER_BASE_URL} from "./api";
+import { useEffect, useState} from "react";
 import {Temperature} from "./Temperature";
 import {TextField, Button} from "@mui/material";
 import defaultIcon from "./assets/weather.png";
 
 function App() {
   const [city, setCity] = useState("");
-  const [temperatureK, setTemperatureK] = useState("");
-  const [icon, setIcon] = useState("");
-  const [description, setDescription] = useState("");
+  const [locationData, setLocationData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const geo_options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
 
-  const getWeather = async e => {
-    e.preventDefault();
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error, geo_options);
+    } else {
+      //location is off
+      console.log('Location is not available.')
+    }
+  }, []);
 
-    const res= await fetch(
-      `${WEATHER_BASE_URL}appid=${process.env.REACT_APP_API_KEY}&q=${city}`
-    );
+  const success = (pos) => {
+    const crd = pos.coords;
+    getWeather({
+      q: `${crd.latitude},${crd.longitude}`
+    });
+  }
+
+  const error = (e) => {
+    console.log(e);
+  }
+
+
+  async function getWeather(params = {q: city}) {
+    console.log(params);
+    const res= await fetch(`${WEATHER_BASE_URL}current.json?key=${process.env.REACT_APP_API_KEY}&q=${params.q}`);
 
     if (res.ok) {
       const data = await res.json();
-      const weather = data?.weather;
-  
-      if (data?.main?.temp) {
-        setTemperatureK(data?.main.temp);
-        setWeatherData(data);
-      }
-  
-      if (weather?.length) {
-        setIcon(`${ICON_URL + weather[0].icon}@2x.png`);
-        setDescription(weather[0].description);
-      }
-
-    }  else {
+      setWeatherData(data.current);
+      setLocationData(data.location);
+    } else {
       setErrorMessage('Unable to obtain data. Please input a correct city name.')
     }
-    
   };
 
   function handleLocationChange(event) {
@@ -45,25 +55,34 @@ function App() {
     setErrorMessage(null);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    getWeather({
+      q: city
+    });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="app-header">
         <h1>WeatherInTown</h1>
       </header>
       <main>
-        <div className="Box">
+        <div className="box">
 
-            {temperatureK ? (
+            { weatherData && locationData ? (
               <Temperature
-                temperatureK={temperatureK}
-                icon={icon}
-                description={description}
-                city={weatherData.name}
+                tempC={weatherData.temp_c}
+                tempF={weatherData.temp_f}
+                icon={weatherData.condition.icon}
+                description={weatherData.condition.text}
+                city={locationData.name + ', ' + locationData.region}
+                localTime={locationData.localtime}
               />
             ) : (
-              <div className="Img-container"><img src={defaultIcon} className="Default-icon" alt="Weather" /></div>
+              <div className="img-container"><img src={defaultIcon} className="default-icon" alt="Weather" /></div>
             )}
-            <form className="City-input" onSubmit={getWeather}>
+            <form className="city-input" onSubmit={handleSubmit}>
               <TextField
                 placeholder="Enter city name"
                 onChange={handleLocationChange}

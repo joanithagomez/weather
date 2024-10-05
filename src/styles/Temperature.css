@@ -1,4 +1,4 @@
-.Weather-icon {
+.weather-icon {
   height: 100px;
 }
 h2 {
@@ -15,12 +15,10 @@ h2 {
   width: 4px;
   border-right: 1px solid #3b3838;
 }
-.Icon {
-  width: 16px;
-  height: 16px;
+.icon {
   vertical-align: middle;
   margin-right: 4px;
 }
-.City {
+.info {
   margin-top: 0;
 }
