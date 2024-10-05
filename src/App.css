@@ -1,0 +1,33 @@
+@import './variables.css';
+.App {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  min-height: 100vh;
+  color: var(--primary-text);
+  background-color: var(--background-color);
+}
+.Box {
+  width: 400px;
+  border-radius: 4px;
+  background-color: white;
+  color: var(--dark-text);
+  /* height: 40vmin; */
+  padding: 40px;
+  display: grid;
+  margin: auto;
+}
+.Default-icon {
+  margin: auto;
+}
+.City-input {
+  padding: 10px;
+  align-self: end;
+  display: grid;
+}
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
