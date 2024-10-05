@@ -1,6 +1,13 @@
 :root {
-    --background-color: #2157A2;
-    --primary-text: #f6f7f8;
-    --dark-text: #333;
     --sub-text-color: #7795b1;
+    --background-color: #f6f7f8;
+    --primary-text: #333;
+    --box-background: #fff;
+}
+
+@media screen and (min-width: 768px) {
+    :root {
+        --background-color: #2157A2;
+        --primary-text: #f6f7f8;
+    }
 }

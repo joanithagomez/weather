@@ -52,16 +52,17 @@ function App() {
       </header>
       <main>
         <div className="Box">
-          {temperatureK ? (
-            <Temperature
-              temperatureK={temperatureK}
-              icon={icon}
-              description={description}
-              city={weatherData.name}
-            />
-          ) : (
-            <img src={defaultIcon} className="Default-icon" alt="Weather" />
-          )}
+
+            {temperatureK ? (
+              <Temperature
+                temperatureK={temperatureK}
+                icon={icon}
+                description={description}
+                city={weatherData.name}
+              />
+            ) : (
+              <div className="Img-container"><img src={defaultIcon} className="Default-icon" alt="Weather" /></div>
+            )}
           <form className="City-input" onSubmit={getWeather}>
             <TextField
               placeholder="Enter city name"

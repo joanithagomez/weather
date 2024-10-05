@@ -7,14 +7,17 @@
   background-color: var(--background-color);
 }
 .Box {
-  width: 400px;
   border-radius: 4px;
-  background-color: white;
+  background-color: var(--box-background);
   color: var(--dark-text);
-  min-height: 400px;
-  padding: 40px;
+  min-width: 200px;
+  padding: 24px 24px 40px;
   display: grid;
   margin: auto;
+  .Img-container {
+    display: flex;
+    min-height: 200px;
+  }
 }
 .error {
   color: red;
@@ -35,5 +38,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: var(--header-background);
   font-size: calc(10px + 2vmin);
+}
+
+@media screen and (min-width: 768px) {
+  .Box {
+    width: 40%;
+    max-width: 600px;
+    padding: 48px;
+  }
+  .App-header {
+    font-size: calc(10px + 2vmin);
+  }
 }
