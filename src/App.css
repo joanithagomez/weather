@@ -11,10 +11,16 @@
   border-radius: 4px;
   background-color: white;
   color: var(--dark-text);
-  /* height: 40vmin; */
+  min-height: 400px;
   padding: 40px;
   display: grid;
   margin: auto;
+}
+.error {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 4px;
+  margin-bottom: 12px;
 }
 .Default-icon {
   margin: auto;

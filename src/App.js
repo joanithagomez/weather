@@ -1,59 +1,80 @@
-import './App.css';
-import { useState } from 'react';
-import { Temperature } from './Temperature';
-import { TextField, Button } from '@mui/material';
-import defaultIcon from './assets/weather.png';
+import "./App.css";
+import {useState} from "react";
+import {Temperature} from "./Temperature";
+import {TextField, Button} from "@mui/material";
+import defaultIcon from "./assets/weather.png";
+import {WEATHER_BASE_URL, API_KEY, ICON_URL} from "./api";
 
 function App() {
-  const KEY = 'f62d966078f4bd9c3c9240a30733a941';
-  const BASE_URL = "http://api.openweathermap.org/data/2.5/weather?";
-  const ICON_URL = "https://openweathermap.org/img/wn/";
-
-  const [city, setCity] = useState('');
-
-  const [temperatureK, setTemperatureK] = useState('');
-  const [icon, setIcon] = useState('');
-  const [description, setDescription] = useState('');
+  const [city, setCity] = useState("");
+  const [temperatureK, setTemperatureK] = useState("");
+  const [icon, setIcon] = useState("");
+  const [description, setDescription] = useState("");
   const [weatherData, setWeatherData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  async function fetchTemperature() {
-          if (city) {
-              const response = await fetch(`${BASE_URL}appid=${KEY}&q=${city}`);
-              const data = await response.json();
-              if (data?.main?.temp) {
-                  setTemperatureK(data?.main.temp);
-                  setWeatherData(data);
-              }
-              let weather = data?.weather;
-              if (weather?.length) {
-                  setIcon(`${ICON_URL + weather[0].icon}@2x.png`);
-                  setDescription(weather[0].description);
-              }
-          }
-  }
+  const getWeather = async e => {
+    e.preventDefault();
+
+    const res= await fetch(
+      `${WEATHER_BASE_URL}appid=${API_KEY}&q=${city}`
+    );
+      
+    if (res.ok) {
+      const data = await res.json();
+      const weather = data?.weather;
+  
+      if (data?.main?.temp) {
+        setTemperatureK(data?.main.temp);
+        setWeatherData(data);
+      }
+  
+      if (weather?.length) {
+        setIcon(`${ICON_URL + weather[0].icon}@2x.png`);
+        setDescription(weather[0].description);
+      }
+
+    }  else {
+      setErrorMessage('Unable to obtain data. Please input a correct city name.')
+    }
+    
+  };
 
   function handleLocationChange(event) {
     setCity(event.target.value);
+    setErrorMessage(null);
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>
-          Weather App
-        </h1>
+        <h1>Weather App</h1>
       </header>
       <main>
-        <div className='Box'>
-            {temperatureK ? <Temperature temperatureK={temperatureK} icon={icon} description={description} city={weatherData.name}/> 
-              : <img src={defaultIcon} className='Default-icon' alt='Weather'/>
-            }
-            <div className='City-input'>
-              <TextField placeholder="Enter city name" onChange={handleLocationChange} label="City"/>
-              <Button variant="contained" onClick={fetchTemperature}>Find</Button>
-            </div>
+        <div className="Box">
+          {temperatureK ? (
+            <Temperature
+              temperatureK={temperatureK}
+              icon={icon}
+              description={description}
+              city={weatherData.name}
+            />
+          ) : (
+            <img src={defaultIcon} className="Default-icon" alt="Weather" />
+          )}
+          <form className="City-input" onSubmit={getWeather}>
+            <TextField
+              placeholder="Enter city name"
+              onChange={handleLocationChange}
+              label="City"
+              error={errorMessage?.length ? true : false }
+            />
+            <p className="error">{errorMessage}</p>
+            <Button variant="contained" type="submit" disabled={!city} aria-disabled={!city}>
+              Find
+            </Button>
+          </form>
         </div>
-
       </main>
     </div>
   );
