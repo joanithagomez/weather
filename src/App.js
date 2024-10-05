@@ -1,9 +1,9 @@
 import "./App.css";
+import {WEATHER_BASE_URL, API_KEY, ICON_URL} from "./api";
 import {useState} from "react";
 import {Temperature} from "./Temperature";
 import {TextField, Button} from "@mui/material";
 import defaultIcon from "./assets/weather.png";
-import {WEATHER_BASE_URL, API_KEY, ICON_URL} from "./api";
 
 function App() {
   const [city, setCity] = useState("");
@@ -48,7 +48,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Weather App</h1>
+        <h1>WeatherInTown</h1>
       </header>
       <main>
         <div className="Box">
@@ -63,18 +63,18 @@ function App() {
             ) : (
               <div className="Img-container"><img src={defaultIcon} className="Default-icon" alt="Weather" /></div>
             )}
-          <form className="City-input" onSubmit={getWeather}>
-            <TextField
-              placeholder="Enter city name"
-              onChange={handleLocationChange}
-              label="City"
-              error={errorMessage?.length ? true : false }
-            />
-            <p className="error">{errorMessage}</p>
-            <Button variant="contained" type="submit" disabled={!city} aria-disabled={!city}>
-              Find
-            </Button>
-          </form>
+            <form className="City-input" onSubmit={getWeather}>
+              <TextField
+                placeholder="Enter city name"
+                onChange={handleLocationChange}
+                label="City"
+                error={errorMessage?.length ? true : false }
+              />
+              <p className="error">{errorMessage}</p>
+              <Button variant="contained" type="submit" disabled={!city} aria-disabled={!city}>
+                Find
+              </Button>
+            </form>
         </div>
       </main>
     </div>
