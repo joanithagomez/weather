@@ -1,4 +1,4 @@
-import './styles/Temperature.css';
+import './Temperature.css';
 import { LocationOnOutlined } from '@mui/icons-material';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 
