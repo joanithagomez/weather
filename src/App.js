@@ -1,5 +1,5 @@
 import "./App.css";
-import {WEATHER_BASE_URL, API_KEY, ICON_URL} from "./api";
+import {WEATHER_BASE_URL, ICON_URL} from "./api";
 import {useState} from "react";
 import {Temperature} from "./Temperature";
 import {TextField, Button} from "@mui/material";
@@ -17,9 +17,9 @@ function App() {
     e.preventDefault();
 
     const res= await fetch(
-      `${WEATHER_BASE_URL}appid=${API_KEY}&q=${city}`
+      `${WEATHER_BASE_URL}appid=${process.env.REACT_API_KEY}&q=${city}`
     );
-      
+
     if (res.ok) {
       const data = await res.json();
       const weather = data?.weather;
