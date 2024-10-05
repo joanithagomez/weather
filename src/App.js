@@ -17,7 +17,7 @@ function App() {
     e.preventDefault();
 
     const res= await fetch(
-      `${WEATHER_BASE_URL}appid=${process.env.REACT_API_KEY}&q=${city}`
+      `${WEATHER_BASE_URL}appid=${process.env.REACT_APP_API_KEY}&q=${city}`
     );
 
     if (res.ok) {

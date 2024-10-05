@@ -21,21 +21,6 @@
         "src": "logo.png",
         "sizes": "96x96",
         "type": "image/png"
-    },
-    {
-        "src": "logo.png",
-        "sizes": "144x144",
-        "type": "image/png"
-    },
-    {
-        "src": "logo.png",
-        "sizes": "168x168",
-        "type": "image/png"
-    },
-    {
-      "src": "logo.png",
-      "type": "image/png",
-      "sizes": "640x640"
     }
   ],
   "start_url": ".",
