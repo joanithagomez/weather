@@ -18,7 +18,6 @@ function App() {
     <div className="app">
       <main>
         <div className="box">
-
             { weatherData && locationData ? (
               <Temperature
                 tempC={weatherData.temp_c}

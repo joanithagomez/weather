@@ -8,12 +8,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--footer-background-color);
+  color: var(--footer-color);
+  font-weight: 500;
+  padding: 14px;
 }
-
 .capitalize {
   text-transform: capitalize;
 }
