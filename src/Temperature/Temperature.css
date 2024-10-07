@@ -1,9 +1,7 @@
-.weather-icon {
-  height: 100px;
-}
-h2 {
+
+h2.temperature {
   margin: 0;
-  font-size: 3em;
+  font-size: 2em;
   .unit {
     font-size: 0.8em;
   }
@@ -21,4 +19,15 @@ h2 {
 }
 .info {
   margin-top: 0;
+}
+
+@media screen and (min-width: 600px) {
+  h2.temperature {
+    font-size: 3em;
+  }
+  .divider {
+    height: 32px;
+    width: 6px;
+  }
+  
 }
